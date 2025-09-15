@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Photo Organizer — Golden Flow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Photo Organizer</h1>
+    <div class="controls">
+      <input id="file-input" type="file" accept="image/*" multiple>
+      <button id="clear-storage">Clear Data</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="albums" class="albums" aria-label="Albums">
+      <!-- Albums will be rendered here -->
+    </section>
+
+    <aside id="viewer" class="viewer" hidden>
+      <button id="close-viewer" aria-label="Close album">Close</button>
+      <h2 id="album-title"></h2>
+      <div id="photo-grid" class="photo-grid"></div>
+    </aside>
+  </main>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
