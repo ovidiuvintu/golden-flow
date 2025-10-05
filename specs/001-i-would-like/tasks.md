@@ -9,12 +9,12 @@ Note: Tasks are ordered for TDD. Do not implement core behavior until the tests 
 
 ## Phase 3.1: Setup
 
-- [ ] T001 Initialize streaming UI page (blocking)
+- [x] T001 Initialize streaming UI page (blocking)
 	- Path: `src/app/streaming/page.tsx`
 	- Create a stub Next.js app router page that renders a placeholder UI with Start, Pause, Stop buttons and a chart container.
 	- Acceptance: Page loads at `/streaming` and shows the three buttons and an empty chart area.
 
-- [ ] T002 [P] Add server simulator skeleton (parallel)
+- [x] T002 [P] Add server simulator skeleton (parallel)
 	- Path: `src/server/simulator.ts`
 	- Create an exported class `Simulator` with methods: `start(config)`, `pause()`, `stop()`, `onBatch(callback)` and in-memory config storage. No emission logic yet—just skeleton and typed interfaces.
 	- Acceptance: Module builds and exports the named API; unit tests can import the class.
