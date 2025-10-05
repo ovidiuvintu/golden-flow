@@ -47,7 +47,20 @@
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+The plan must validate the following gates (derived from the project constitution):
+
+- Test-First: Feature includes at least one failing automated test (unit, contract, or
+   integration) or documents why an alternative test strategy is required.
+- Observability: Plan documents how the feature will be observable (logs, at least one
+   relevant metric, or tracing guidance).
+- Versioning: If the change touches public contracts (APIs, published packages), the
+   plan MUST include the intended versioning impact (patch/minor/major) and migration
+   notes for consumers.
+- Accessibility & Performance: Frontend/API features MUST include accessibility
+   acceptance criteria and a performance target or a note explaining why none apply.
+
+If any gate is not satisfied, mark an entry in Complexity Tracking and resolve before
+proceeding to Phase 1.
 
 ## Project Structure
 

@@ -30,6 +30,22 @@
    → All entities have models?
    → All endpoints implemented?
 9. Return: SUCCESS (tasks ready for execution)
+
+## Constitution Alignment
+
+All generated tasks and the task generation process MUST reference the project constitution
+and validate the following for the feature in scope before marking tasks ready:
+
+- Tests Before Implementation: Ensure at least one failing automated test task exists for
+   the feature (unit, contract, or integration). Tasks that implement behavior MUST be
+   scheduled after their corresponding test tasks.
+- Observability Tasks: Include tasks to add structured logging and at least one
+   observable artifact (metric, log context, or tracing) where applicable.
+- Versioning Tasks: If a task changes public contracts, include a task to document the
+   versioning impact and create a migration note.
+- Accessibility & Performance Tasks: For frontend/API work, include tasks to verify
+   accessibility acceptance criteria and performance budgets or to record why they are
+   not applicable.
 ```
 
 ## Format: `[ID] [P?] Description`
