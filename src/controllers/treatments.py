@@ -2,7 +2,7 @@
 # Controller for managing treatments
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Request
 from fastapi.responses import JSONResponse
-from src.models.schemas import TreatmentOut
+from models.schemas import TreatmentOut
 from typing import List
 import logging
 

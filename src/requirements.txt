@@ -3,6 +3,7 @@
 # For uvicorn only the standard extras are needed.
 fastapi==0.99.1
 uvicorn[standard]==0.22.0
-pydantic==1.7.4
+pydantic==1.10.22
 aiofiles==23.1.0
 paho-mqtt==1.6.1
+python-multipart==0.0.6

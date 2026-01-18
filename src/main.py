@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from src.controllers.treatments import router as treatments_router
-from src.db import init_db
-from src.services.treatment_service import TreatmentService
+from controllers.treatments import router as treatments_router
+from db import init_db
+from services.treatment_service import TreatmentService
 import os
 
 def create_app() -> FastAPI:
