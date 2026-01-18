@@ -9,7 +9,7 @@
 - Navigate to the src folder in powershell
 - Run pip install -r requirements.txt
 
-### run the applicationn locally
+### run the application locally
 - Navigate to the src folder in powershell
 - Run uvicorn main:app
 
