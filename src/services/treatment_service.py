@@ -20,7 +20,7 @@ class TreatmentService:
 
     # Public interface methods
     def list_treatments(self):
-        return persistence.list_treatments()
+        return persistence.list_treatments(self.db_path)
     
     async def start_treatment(self) -> None:
         pass

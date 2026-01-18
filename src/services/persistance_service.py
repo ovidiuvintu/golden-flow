@@ -1,6 +1,6 @@
 import logging
 from typing import Optional, Dict, Any, List
-from src.db import get_conn, row_to_dict
+from db import get_conn, row_to_dict
 
 # No state therefore no need for a class
 
