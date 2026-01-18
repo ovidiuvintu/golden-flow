@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from controllers.treatments import router as treatments_router
-from db import init_db
-from services.treatment_service import TreatmentService
+from src.controllers.treatments import router as treatments_router
+from src.db import init_db
+from src.services.treatment_service import TreatmentService
 import os
 
 
@@ -13,7 +13,7 @@ def create_app() -> FastAPI:
     init_db(db_path)
 
     # Initialize services
-    app.state.treatment_service = TreatmentService()
+    app.state.treatment_service = TreatmentService(db_path=db_path)
 
     # Include routers under /api so endpoints become /api/treatments
     app.include_router(treatments_router, prefix="/api")

@@ -1,16 +1,27 @@
 
+import sys
+from pathlib import Path
+import asyncio
+import csv
+import sqlite3
+import os
 import logging
+from typing import Optional
+
+from db import init_db
+from services import persistance_service as persistence
 
 logger = logging.getLogger(__name__)
 
 class TreatmentService:
-    def __init__(self):
-        pass
+    def __init__(self, db_path: Optional[str] = None):
+        self.db_path = db_path or os.getenv("TREATMENTS_DB_PATH", "treatments.db")
+        init_db(self.db_path)
 
     # Public interface methods
-    def list_treatments(self) -> None:
-        pass
-
+    def list_treatments(self):
+        return persistence.list_treatments()
+    
     async def start_treatment(self) -> None:
         pass
 

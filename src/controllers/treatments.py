@@ -31,7 +31,7 @@ async def start_treatment_async(name: str = Form(...), file: UploadFile = File(.
 @router.get("/treatments", response_model=List[TreatmentOut])
 async def list_treatments(request: Request):
     svc = get_service(request)
-    pass
+    return svc.list_treatments()
 
 # Endpoint to get a specific treatment by ID
 @router.get("/treatments/{id}")
