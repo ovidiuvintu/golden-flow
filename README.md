@@ -20,14 +20,16 @@ Full stack application to demonstrate a simulation of oil fracking.
 - user navigates to localhost:port_number/docs to access swagger
 	- Create a new treatment
 		- POST /treatments
-			User supplies treatment data in csv format. The server stores the details of the treatment.
+			User supplies treatment data in csv format (One is provided in the solution simulation_data.csv). The server stores the details of the treatment
 			in a local sqllite database and directs a background process to simulate the treatment.
-			The process reads the treatment data line by line at 1 second intervals and logs the progress. 
-				- 2026-01-19 15:45:36,625 INFO services.simulation_service: Treatment 19: timestamp=1768691738, volume=3794.0, pressure=8695.0
-				- 2026-01-19 15:45:37,625 INFO services.simulation_service: Treatment 19: timestamp=1768691739, volume=3315.0, pressure=1610.0
-				- 2026-01-19 15:45:38,625 INFO services.simulation_service: Treatment 19: timestamp=1768691740, volume=4880.0, pressure=7750.0
+			The background process reads the treatment data line by line at 1 second intervals and logs the progress.
+
+			- 15:45:36 Treatment 19: timestamp=1768691738, volume=3794.0, pressure=8695.0
+			- 15:45:37 Treatment 19: timestamp=1768691739, volume=3315.0, pressure=1610.0
+			- 15:45:38 Treatment 19: timestamp=1768691740, volume=4880.0, pressure=7750.0
 	
 	- List all treatments
 		- GET
 			The server returns a list of all treatments in the database. 
+
 	- TODO: Implement the rest of the endpoints
