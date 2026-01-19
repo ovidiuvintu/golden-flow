@@ -1,5 +1,5 @@
 # golden-flow
-Full stack application to demonstrate a simulation of oil fracking. 
+Full stack application (not yet) to demonstrate a simulation of oil fracking. 
 
 ### run application locally in a virtual environment (create and activate)
 - Navigate to the src folder in powershell
