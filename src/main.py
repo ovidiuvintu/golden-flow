@@ -4,7 +4,6 @@ from db import init_db
 from services.treatment_service import TreatmentService
 import os
 
-
 def create_app() -> FastAPI:
     app = FastAPI(title="Treatment Simulation")
 

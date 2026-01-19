@@ -6,6 +6,7 @@ from db import get_conn, row_to_dict
 
 logger = logging.getLogger(__name__)
 
+# Inserts treatment info into the database
 def insert_treatment(db_path: str, name: str, data_file_path: str) -> Dict[str, Any]:
     conn = get_conn(db_path)
     c = conn.cursor()

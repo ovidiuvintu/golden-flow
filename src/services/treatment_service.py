@@ -2,12 +2,14 @@
 from pathlib import Path
 import os
 import logging
+import asyncio
 from typing import Dict, Optional, Any
 import uuid
 from fastapi import UploadFile
 
 from db import init_db
 from services import persistance_service as persistence
+from services import simulation_service as simulation
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +17,7 @@ class TreatmentService:
     def __init__(self, db_path: Optional[str] = None):
         self.db_path = db_path or os.getenv("TREATMENTS_DB_PATH", "treatments.db")
         init_db(self.db_path)
+        self.tasks: Dict[int, asyncio.Task] = {}
 
     # Public interface methods
     def list_treatments(self):
@@ -33,9 +36,18 @@ class TreatmentService:
             out_f.write(content)
 
         logger.info(f"Saved uploaded file to {target_path}")
-        
-        # save treatment info to the database
+
+        # save treatment info to the database and get the treatment record
         treatment = self._insert_treatment(name, target_path)
+        # get the treatment ID which will be used as an identifer for this treatment streaming
+        treatmentId = int(treatment["id"])
+
+        # Start background streaming task
+        loop = asyncio.get_running_loop()
+        logger.info(f"Starting streaming task for treatment {treatmentId}") 
+        task = loop.create_task(self._stream_worker(treatmentId))
+        self.tasks[treatmentId] = task
+
         return treatment
 
     def stop_treatment(self) -> None:
@@ -45,6 +57,7 @@ class TreatmentService:
         pass      
     
     # Private helper methods
+
     def _insert_treatment(self, name: str, data_file_path: str) -> Dict[str, Any]:
         return persistence.insert_treatment(self.db_path, name, data_file_path)
 
@@ -54,5 +67,6 @@ class TreatmentService:
     def _get_treatment(self) -> None:
         pass
 
-    def _stream_worker(self) -> None:
-        pass
+    async def _stream_worker(self, treatment_id: int):
+        # Delegate streaming to the simulation service
+        await simulation.start_streaming(self.db_path, treatment_id, self.mqtt_host, self.mqtt_port)
