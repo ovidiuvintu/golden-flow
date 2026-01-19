@@ -29,6 +29,7 @@ class TreatmentService:
         os.makedirs(uploads_dir, exist_ok=True)
         filename = f"{uuid.uuid4().hex}-{upload_file.filename}"
         target_path = os.path.join(uploads_dir, filename)
+        logger.info(f"Uploading file to {target_path}")
 
         # Save upload to docker data directory
         with open(target_path, "wb") as out_f:
@@ -69,4 +70,4 @@ class TreatmentService:
 
     async def _stream_worker(self, treatment_id: int):
         # Delegate streaming to the simulation service
-        await simulation.start_streaming(self.db_path, treatment_id, self.mqtt_host, self.mqtt_port)
+        await simulation.start_streaming(self.db_path, treatment_id)

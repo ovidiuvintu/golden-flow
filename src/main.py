@@ -1,10 +1,21 @@
+import logging
+import sys
 from fastapi import FastAPI
 from controllers.treatments import router as treatments_router
 from db import init_db
 from services.treatment_service import TreatmentService
 import os
 
+logging.basicConfig(
+    level=logging.INFO,
+    stream=sys.stdout,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+logger = logging.getLogger(__name__)
+
 def create_app() -> FastAPI:
+    logger.info("Application started")
+
     app = FastAPI(title="Treatment Simulation")
 
     # Initialize DB

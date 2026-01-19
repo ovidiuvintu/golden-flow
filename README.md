@@ -18,3 +18,4 @@
 - Install docker desktop
 - Navigate to the src folder in powershell
 - Run docker compose up -d --build
+- Run docker compose up -d --force-recreate
