@@ -37,16 +37,7 @@ async def list_treatments(request: Request):
 @router.get("/treatments/{id}")
 def get_treatment(id: int, request: Request):
     svc = get_service(request)
-    pass
-
-# Endpoint to stop a treatment by ID
-@router.post("/treatments/{id}/stop", status_code=201)
-def stop_treatment(id: int, request: Request):
-    svc = get_service(request)
-    pass
-
-# Endpoint to change the state of a treatment
-@router.post("/treatments/{id}/state")
-def change_state(id: int, payload: dict, request: Request):
-    svc = get_service(request)
-    pass
+    treatment = svc.persistence.get_treatment(id)
+    if not treatment:
+        raise HTTPException(status_code=404, detail="Treatment not found")
+    return treatment
