@@ -10,16 +10,17 @@ from services.simulation_service import SimulationService
 from services.mqtt_service import MqttService
 import os
 
-'''
+"""
    Application entry point setting up FastAPI app, 
    initializing services, and wiring dependencies.
-'''
+"""
 logging.basicConfig(
     level=logging.INFO,
     stream=sys.stdout,
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
 )
 logger = logging.getLogger(__name__)
+
 
 def create_app() -> FastAPI:
     logger.info("Application started")
@@ -36,7 +37,13 @@ def create_app() -> FastAPI:
     persistence = PersistenceService(db)
     mqtt = MqttService()
     simulation = SimulationService(persistence=persistence, publisher=mqtt)
-    app.state.treatment_service = TreatmentService(db_path=db_path, storage=storage, persistence=persistence, simulation=simulation, publisher=mqtt)
+    app.state.treatment_service = TreatmentService(
+        db_path=db_path,
+        storage=storage,
+        persistence=persistence,
+        simulation=simulation,
+        publisher=mqtt,
+    )
 
     # Include routers under /api by convention
     # TODO: Add versioning later
@@ -55,5 +62,7 @@ app = create_app()
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "4000")), log_level="info")
 
+    uvicorn.run(
+        app, host="0.0.0.0", port=int(os.getenv("PORT", "4000")), log_level="info"
+    )

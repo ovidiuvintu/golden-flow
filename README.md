@@ -19,8 +19,8 @@ Full stack application (not yet) to demonstrate a simulation of oil fracking.
 ### how it works
 - user navigates to localhost:port_number/docs to access swagger
 	- Create a new treatment
-		- POST /treatments
-			User supplies treatment data in csv format (One is provided in the solution simulation_data.csv). The server stores the details of the treatment
+			- POST /treatments
+				User supplies treatment data in csv format (One is provided in the solution high_fidelity_fracturing_sample_12000_rows.csv). The server stores the details of the treatment
 			in a local sqllite database and directs a background process to simulate the treatment.
 			The background process reads the treatment data line by line at 1 second intervals and logs the progress.
 
