@@ -1,11 +1,12 @@
-
 import sqlite3
 import os
 from typing import Optional, Dict, Any
 
-'''
+"""
 Module for managing the SQLite database connection and schema initialization.
-'''
+"""
+
+
 class Database:
     def __init__(self, db_path: Optional[str] = None):
         self.db_path = db_path or os.getenv("TREATMENTS_DB_PATH", "treatments.db")
@@ -18,8 +19,7 @@ class Database:
     def init_db(self) -> None:
         conn = self.get_conn()
         c = conn.cursor()
-        c.execute(
-            """
+        c.execute("""
             CREATE TABLE IF NOT EXISTS treatments (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
@@ -30,8 +30,7 @@ class Database:
                 data_file_path TEXT NOT NULL,
                 created_at TEXT
             )
-            """
-        )
+            """)
         conn.commit()
         conn.close()
 

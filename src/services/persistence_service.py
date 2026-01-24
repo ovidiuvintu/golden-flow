@@ -5,11 +5,12 @@ from db import Database
 logger = logging.getLogger(__name__)
 
 
-'''
+"""
 Module for persistence service for treatments DB operations.
-'''
+"""
+
+
 class PersistenceService:
-    
 
     def __init__(self, db: Optional[Database] = None):
         self.db = db or Database()
@@ -20,10 +21,10 @@ class PersistenceService:
     def insert_treatment(self, name: str, data_file_path: str) -> Dict[str, Any]:
         conn = self._conn()
         c = conn.cursor()
-        now = __import__('datetime').datetime.utcnow().isoformat()
+        now = __import__("datetime").datetime.utcnow().isoformat()
         c.execute(
             "INSERT INTO treatments (name, description, state, start_time, data_file_path, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-            (name, None, 'running', now, data_file_path, now),
+            (name, None, "running", now, data_file_path, now),
         )
         conn.commit()
         tid = c.lastrowid
@@ -36,11 +37,13 @@ class PersistenceService:
 
     def get_treatment(self, treatment_id: int):
         """
-        Return a treatment row dict for the given id, or 
+        Return a treatment row dict for the given id, or
         None if not found.
         """
         conn = self._conn()
-        row = conn.execute("SELECT * FROM treatments WHERE id=?", (treatment_id,)).fetchone()
+        row = conn.execute(
+            "SELECT * FROM treatments WHERE id=?", (treatment_id,)
+        ).fetchone()
         conn.close()
         if not row:
             return None
@@ -51,5 +54,3 @@ class PersistenceService:
         rows = conn.execute("SELECT * FROM treatments ORDER BY id DESC").fetchall()
         conn.close()
         return [Database.row_to_dict(r) for r in rows]
-
-

@@ -7,12 +7,14 @@ from fastapi import UploadFile
 
 logger = logging.getLogger(__name__)
 
-'''
+"""
 Module for copying the local data file (csv) to docker internal
 storage. 
 TODO: Need to use docker volumes.
 SOLID principle implemented: Single Responsibility Principle
-'''
+"""
+
+
 class StorageService:
     def __init__(self, uploads_dir: Optional[str] = None):
         self.uploads_dir = uploads_dir or os.path.join(os.getcwd(), "data")

@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import os
 import logging
@@ -15,9 +14,11 @@ from services.mqtt_service import MqttService
 
 logger = logging.getLogger(__name__)
 
-'''
+"""
 Module for managing all treatment operations
-'''
+"""
+
+
 class TreatmentService:
     def __init__(
         self,
@@ -33,13 +34,17 @@ class TreatmentService:
         self.storage = storage or StorageService()
         self.persistence = persistence or PersistenceService(Database(self.db_path))
         self.publisher = publisher or MqttService()
-        self.simulation = simulation or SimulationService(self.persistence, self.publisher)
+        self.simulation = simulation or SimulationService(
+            self.persistence, self.publisher
+        )
 
     # Public interface methods
     def list_treatments(self):
         return self.persistence.list_treatments()
-    
-    async def start_treatment(self, name: str, upload_file: UploadFile) -> Dict[str, Any]:
+
+    async def start_treatment(
+        self, name: str, upload_file: UploadFile
+    ) -> Dict[str, Any]:
         # Delegate file saving to StorageService
         target_path = await self.storage.save_upload(upload_file)
 
@@ -48,9 +53,9 @@ class TreatmentService:
         # get the treatment ID which will be used as an identifer for this treatment streaming
         treatmentId = int(treatment["id"])
 
-        # Start background streaming task. 
+        # Start background streaming task.
         loop = asyncio.get_running_loop()
-        logger.info(f"Starting streaming task for treatment {treatmentId}") 
+        logger.info(f"Starting streaming task for treatment {treatmentId}")
 
         # run concurrently on the event loop. gives you a false sense
         # of parallelism. No parrallelism here since Python has GIL.
@@ -61,18 +66,18 @@ class TreatmentService:
 
     # TODO: Implement these methods
     def stop_treatment(self) -> None:
-        pass 
+        pass
 
     def change_state(self) -> None:
-        pass      
-    
+        pass
+
     # Private helper methods
 
     def _insert_treatment(self, name: str, data_file_path: str) -> Dict[str, Any]:
         return self.persistence.insert_treatment(name, data_file_path)
 
     def _update_treatment_state(self) -> None:
-       pass
+        pass
 
     def _get_treatment(self) -> None:
         pass
